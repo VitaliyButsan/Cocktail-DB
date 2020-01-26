@@ -57,14 +57,62 @@
 			isa = PBXGroup;
 			children = (
 				5836550023DD96C2004D5540 /* AppDelegate.swift */,
-				5836550223DD96C2004D5540 /* SceneDelegate.swift */,
-				5836550423DD96C2004D5540 /* ViewController.swift */,
-				5836550623DD96C2004D5540 /* Main.storyboard */,
 				5836550923DD96C5004D5540 /* Assets.xcassets */,
-				5836550B23DD96C5004D5540 /* LaunchScreen.storyboard */,
-				5836550E23DD96C5004D5540 /* Info.plist */,
+				5836551423DD9737004D5540 /* Classes */,
+				5836550223DD96C2004D5540 /* SceneDelegate.swift */,
+				5836551823DD9784004D5540 /* Supporting Files */,
 			);
 			path = "Cocktail DB";
+			sourceTree = "<group>";
+		};
+		5836551423DD9737004D5540 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				5836551723DD974E004D5540 /* Controllers */,
+				5836551623DD9749004D5540 /* Views */,
+				5836551523DD9741004D5540 /* Model */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		5836551523DD9741004D5540 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5836551623DD9749004D5540 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5836551923DD97B8004D5540 /* Storyboards */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5836551723DD974E004D5540 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5836550423DD96C2004D5540 /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		5836551823DD9784004D5540 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5836550E23DD96C5004D5540 /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5836551923DD97B8004D5540 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				5836550623DD96C2004D5540 /* Main.storyboard */,
+				5836550B23DD96C5004D5540 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,7 +264,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -270,7 +318,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -286,7 +334,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 45JNFF5WM9;
-				INFOPLIST_FILE = "Cocktail DB/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Cocktail DB/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -304,7 +353,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 45JNFF5WM9;
-				INFOPLIST_FILE = "Cocktail DB/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Cocktail DB/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
