@@ -108,6 +108,7 @@
 			children = (
 				5836551523DD9741004D5540 /* Models */,
 				5836551623DD9749004D5540 /* Views */,
+				58D7C8D023DF76C40017AE91 /* ViewModels */,
 				5836551723DD974E004D5540 /* Controllers */,
 				581E802823DDA826009E9E34 /* API */,
 				581E802923DDA82B009E9E34 /* Helpers */,
@@ -120,7 +121,6 @@
 			children = (
 				581E802E23DDCD9B009E9E34 /* CoctailsCategoryModel.swift */,
 				58083BC123DDEB6700D11675 /* CocktailsListModel.swift */,
-				581E803023DDD47B009E9E34 /* CocktailsViewModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -156,6 +156,14 @@
 				5836550B23DD96C5004D5540 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		58D7C8D023DF76C40017AE91 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				581E803023DDD47B009E9E34 /* CocktailsViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		5D6C9A49DF39E9C15638A32F /* Frameworks */ = {

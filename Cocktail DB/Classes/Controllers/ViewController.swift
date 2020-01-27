@@ -9,47 +9,43 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    let cocktailsModel = CocktailsViewModel()
+    
+    private let cocktailsViewModel = CocktailsViewModel()
     private var categoryCounter: Int = 0
- 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .gray
         
-        getCocktailsList(by: self.cocktailsModel.cocktailsCategories.first ?? nil)
+        cocktailsViewModel.getCategories()
+        setObserver()
     }
-
-    private func getCocktailsList(by category: CocktailsCategory?) {
-        
-        if category == nil {
-            cocktailsModel.getCategories { [unowned self] result in
-                if result != nil {
-                    self.categoryCounter += 1
-                    let firstCategory = self.cocktailsModel.cocktailsCategories[self.categoryCounter]
-                    
-                    self.cocktailsModel.getCocktailsList(by: firstCategory) { result in
-                        guard let cocktailsInfo = result else { return }
-                        for cocktail in cocktailsInfo {
-                            print("cockt_info < 1:", cocktail.name ?? "...")
-                        }
-                    }
-                    
-                } else {
-                    print("ERROR: No categories!")
-                    // Show Alert
-                }
-            }
+    
+    private func setObserver() {
+        cocktailsViewModel.result = { result in
             
-        } else {
-            self.cocktailsModel.getCocktailsList(by: category!) { result in
-                guard let cocktailsInfo = result else { return }
-                self.categoryCounter += 1
-                
-                for cocktail in cocktailsInfo {
-                    print("cockt_info > 1:", cocktail.name ?? "...")
+            switch result {
+            case .success( _ ):
+                if self.cocktailsViewModel.cocktailsListsByCategories.isEmpty {
+                    self.getCocktailsList()
+                } else {
+                    // reloadData()
                 }
+                
+            case .failure(let error):
+                print(error)
+                /// call Alert("Error: Data not received")
             }
+        }
+    }
+    
+    private func getCocktailsList() {
+        if self.categoryCounter >= self.cocktailsViewModel.cocktailsCategories.count - 1 {
+            /// call Alert("no more categories")
+        } else {
+            let category = self.cocktailsViewModel.cocktailsCategories[self.categoryCounter]
+            cocktailsViewModel.getCocktails(by: category)
+            self.categoryCounter += 1
         }
     }
 }

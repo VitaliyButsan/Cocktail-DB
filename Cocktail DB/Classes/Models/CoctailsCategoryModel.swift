@@ -12,6 +12,6 @@ struct CocktailsCategoriesWrapper: Decodable {
     let drinks: [CocktailsCategory]
 }
 
-struct CocktailsCategory: Decodable {
+struct CocktailsCategory: Decodable, Hashable {
     let strCategory: String
 }

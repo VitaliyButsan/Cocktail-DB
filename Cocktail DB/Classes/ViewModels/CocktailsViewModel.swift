@@ -13,29 +13,30 @@ class CocktailsViewModel {
     
     private let provider = MoyaProvider<CocktailDB>()
     var cocktailsCategories: [CocktailsCategory] = []
-    var cocktailsList: [CocktailInfo] = []
+    var cocktailsListsByCategories: [CocktailsCategory : [CocktailInfo]] = [:]
+    var result: ((Result<Void, Error>) -> Void)?
     
     // MARK: - Get Categories
     
-    func getCategories(completionHandler: @escaping ([CocktailsCategory]?) -> Void) {
+    func getCategories() {
         
         provider.request(.getCategories) { [weak self] result in
             guard let self = self else { return }
             
             switch result {
             case .success(let moyaResponse):
-                guard let drinksCategories = self.getDrinksCategories(from: moyaResponse.data) else { return }
-                self.cocktailsCategories = drinksCategories
-                completionHandler(drinksCategories)
+                guard let receivedCategories = self.getCocktailsCategories(from: moyaResponse.data) else { return }
+                self.cocktailsCategories = receivedCategories
+                self.result?(.success(Void()))
                 
             case .failure(let error):
                 print(error)
-                completionHandler(nil)
+                self.result?(.failure(error))
             }
         }
     }
     
-    private func getDrinksCategories(from data: Data) -> [CocktailsCategory]? {
+    private func getCocktailsCategories(from data: Data) -> [CocktailsCategory]? {
         do {
             let cocktailsWrapper = try JSONDecoder().decode(CocktailsCategoriesWrapper.self, from: data)
             return cocktailsWrapper.drinks
@@ -47,25 +48,25 @@ class CocktailsViewModel {
     
     // MARK: - Get Cocktails List by Category
     
-    func getCocktailsList(by drinks: CocktailsCategory, completionHandler: @escaping ([CocktailInfo]?) -> Void) {
+    func getCocktails(by category: CocktailsCategory) {
         
-        provider.request(.filter(by: drinks.strCategory)) { [weak self] result in
+        provider.request(.filter(by: category.strCategory)) { [weak self] result in
             guard let self = self else { return }
             
             switch result {
             case .success(let moyaResponse):
-                guard let drinksList = self.getDrinksList(from: moyaResponse.data) else { return }
-                completionHandler(drinksList)
-                self.cocktailsList = drinksList
+                guard let receivedCocktails = self.getCocktailsList(from: moyaResponse.data) else { return }
+                self.cocktailsListsByCategories[category] = receivedCocktails
+                self.result?(.success(Void()))
                 
             case .failure(let error):
                 print(error)
-                completionHandler(nil)
+                self.result?(.failure(error))
             }
         }
     }
     
-    private func getDrinksList(from data: Data) -> [CocktailInfo]? {
+    private func getCocktailsList(from data: Data) -> [CocktailInfo]? {
         do {
             let coctailsWrapper = try JSONDecoder().decode(CocktailsListWrapper.self, from: data)
             return coctailsWrapper.drinks
