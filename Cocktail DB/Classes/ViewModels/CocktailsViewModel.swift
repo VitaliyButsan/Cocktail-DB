@@ -76,4 +76,9 @@ class CocktailsViewModel {
         }
     }
     
+    // MARK: - Filter Categories With Cocktails
+    
+    func getFilteredCategoriesWithCocktails(by wantedCategories: [CocktailsCategory]) -> [CocktailsCategory:[CocktailInfo]] {
+        return cocktailsListsByCategories.filter { wantedCategories.contains($0.key) }
+    }
 }
