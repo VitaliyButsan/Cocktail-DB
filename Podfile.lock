@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.9.1)
+  - MBProgressHUD (1.2.0)
   - Moya (13.0.1):
     - Moya/Core (= 13.0.1)
   - Moya/Core (13.0.1):
@@ -8,19 +9,22 @@ PODS:
   - Result (4.1.0)
 
 DEPENDENCIES:
+  - MBProgressHUD (~> 1.2.0)
   - Moya (~> 13.0)
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - MBProgressHUD
     - Moya
     - Result
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
 
-PODFILE CHECKSUM: acf1acba9457e789afd45ba7812d8baf05940573
+PODFILE CHECKSUM: 05bdd9bce0c8cd18d87fe2a300badcf01c6a8336
 
 COCOAPODS: 1.8.3

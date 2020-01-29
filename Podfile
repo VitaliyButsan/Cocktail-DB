@@ -7,5 +7,6 @@ target 'Cocktail DB' do
 
   # Pods for Cocktail DB
 	pod 'Moya', '~> 13.0'
+	pod 'MBProgressHUD', '~> 1.2.0'
 
 end
