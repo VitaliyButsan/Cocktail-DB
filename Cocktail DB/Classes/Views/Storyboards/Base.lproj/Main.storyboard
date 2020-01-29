@@ -39,6 +39,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="filterBarButton" destination="XFd-wD-DKM" id="SCH-Lv-XHP"/>
                         <segue destination="aRl-Rj-AMm" kind="show" identifier="showCategoriesVCSegue" id="LaQ-Nz-E2C"/>
                     </connections>
                 </tableViewController>
@@ -99,7 +100,6 @@
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="nRo-Qx-m2j" secondAttribute="bottom" id="5Oq-Sw-iCX"/>
                                     <constraint firstItem="nRo-Qx-m2j" firstAttribute="leading" secondItem="wrV-Ui-6sb" secondAttribute="leading" constant="24" id="K6C-Sk-vwU"/>
-                                    <constraint firstItem="nRo-Qx-m2j" firstAttribute="centerX" secondItem="wrV-Ui-6sb" secondAttribute="centerX" id="LMl-Yz-8MX"/>
                                     <constraint firstAttribute="trailing" secondItem="nRo-Qx-m2j" secondAttribute="trailing" constant="24" id="V8n-Cp-NlE"/>
                                     <constraint firstAttribute="height" constant="105" id="rU2-VO-5fd"/>
                                 </constraints>
@@ -119,6 +119,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="PeE-Rn-5D4"/>
                     <connections>
+                        <outlet property="filterButton" destination="nRo-Qx-m2j" id="kfj-LD-xSS"/>
                         <outlet property="tableView" destination="xJY-M8-kII" id="y0W-hd-o1J"/>
                     </connections>
                 </viewController>

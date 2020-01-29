@@ -7,20 +7,24 @@
 //
 
 import UIKit
+import SDWebImage
 
 class CocktailsTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var cocktailImageView: UIImageView!
+    @IBOutlet weak var cocktailNameLabel: UILabel!
+    
     static let reuseID: String = "CocktailsCell"
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
+    func updateCell(by cocktailInfo: CocktailInfo) {
+        cocktailNameLabel.text = cocktailInfo.name
+        guard let imageLink = cocktailInfo.thumbLink else { return }
+        let url = URL(string: imageLink)
+        cocktailImageView.sd_setImage(with: url, completed: nil)
+    }
 }

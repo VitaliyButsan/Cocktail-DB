@@ -24,19 +24,19 @@
                             <constraint firstAttribute="height" constant="50" id="xbG-Jx-lHN"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="_ _ _" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="muE-jS-9Aq">
-                        <rect key="frame" x="115" y="36" width="389" height="34"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="muE-jS-9Aq">
+                        <rect key="frame" x="100" y="36" width="404" height="34"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="34" id="zeN-IV-L2p"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="muE-jS-9Aq" firstAttribute="leading" secondItem="07H-Oo-kms" secondAttribute="trailing" constant="35" id="8K3-zC-NHS"/>
+                    <constraint firstItem="muE-jS-9Aq" firstAttribute="leading" secondItem="07H-Oo-kms" secondAttribute="trailing" constant="20" id="8K3-zC-NHS"/>
                     <constraint firstItem="07H-Oo-kms" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="NH1-Wv-uSh"/>
                     <constraint firstItem="07H-Oo-kms" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="hrh-jc-LTP"/>
                     <constraint firstItem="muE-jS-9Aq" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="lNv-vh-2mW"/>
@@ -44,6 +44,10 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="cocktailImageView" destination="07H-Oo-kms" id="bvM-Rh-fF7"/>
+                <outlet property="cocktailNameLabel" destination="muE-jS-9Aq" id="INh-LN-gEe"/>
+            </connections>
             <point key="canvasLocation" x="117.39130434782609" y="71.651785714285708"/>
         </tableViewCell>
     </objects>

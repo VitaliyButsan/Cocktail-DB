@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct CategoryForSelect: Equatable {
+struct CategoryForSelect {
     var name: String
     var isSelect: Bool
 }
