@@ -106,6 +106,7 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
                             <constraint firstItem="wrV-Ui-6sb" firstAttribute="trailing" secondItem="SJp-lS-Ue9" secondAttribute="trailing" id="4lS-zE-Cc8"/>
                             <constraint firstItem="wrV-Ui-6sb" firstAttribute="top" secondItem="xJY-M8-kII" secondAttribute="bottom" id="8Gc-LA-Onr"/>

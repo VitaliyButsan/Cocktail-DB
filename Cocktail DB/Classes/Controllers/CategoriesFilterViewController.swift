@@ -22,12 +22,23 @@ class CategoriesFilterViewController: UIViewController {
         super.viewDidLoad()
         // to hide separators of unused cells
         tableView.tableFooterView = UIView()
+        
+        getSavedCategories()
+        makeSelected(categories ?? [])
+    }
+   
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        compareNewOldSelections()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        DispatchQueue.main.async {
-            self.savedCategories = self.db.getCategories()
+    private func getSavedCategories() {
+        savedCategories = db.getCategories()
+    }
+    
+    private func makeSelected(_ list: [CocktailsCategory]) {
+        for categoryName in list {
+            categoriesForSelect.append(CategoryForSelect(name: categoryName.strCategory, isSelect: false))
         }
     }
     
@@ -49,52 +60,44 @@ class CategoriesFilterViewController: UIViewController {
 extension CategoriesFilterViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        toggleCheckmark(at: indexPath)
-        saveSelectedCategory(at: indexPath)
+        toggleCheckmarkAndCategory(at: indexPath)
         compareNewOldSelections()
     }
     
-    private func toggleCheckmark(at indexPath: IndexPath) {
-        let selectedCell = tableView.cellForRow(at: indexPath)
-        selectedCell?.accessoryType = selectedCell?.accessoryType == .checkmark ? .none : .checkmark
-    }
-    
-    private func saveSelectedCategory(at indexPath: IndexPath) {
-        guard let selectedCategoryName = tableView.cellForRow(at: indexPath)?.textLabel?.text else { return }
+    private func toggleCheckmarkAndCategory(at indexPath: IndexPath) {
+        guard let selectedCell = tableView.cellForRow(at: indexPath) else { return }
         
-        if categoriesForSelect.contains(where: { $0.name == selectedCategoryName}) {
-            if let index = self.categoriesForSelect.firstIndex(where: {$0.name == selectedCategoryName}) {
-                self.categoriesForSelect[index].isSelect.toggle()
-            }
+        if selectedCell.accessoryType == .checkmark {
+            selectedCell.accessoryType = .none
+            self.categoriesForSelect[indexPath.row].isSelect = false
         } else {
-            categoriesForSelect.append(CategoryForSelect(name: selectedCategoryName, isSelect: true))
+            selectedCell.accessoryType = .checkmark
+            self.categoriesForSelect[indexPath.row].isSelect = true
         }
     }
     
     private func compareNewOldSelections() {
-        if !savedCategories.isEmpty {
-            if isEquals(savedCategories, categoriesForSelect) {
-                DispatchQueue.main.async {
-                    self.filterButton.isEnabled = false
-                    self.filterButton.layer.borderColor = UIColor(white: 0.5, alpha: 0.5).cgColor
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self.filterButton.isEnabled = true
-                    self.filterButton.layer.borderColor = UIColor.black.cgColor
-                }
+        if isEquals(savedCategories, with: categoriesForSelect) {
+            DispatchQueue.main.async {
+                self.filterButton.isEnabled = false
+                self.filterButton.layer.borderColor = UIColor(white: 0.5, alpha: 0.5).cgColor
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.filterButton.isEnabled = true
+                self.filterButton.layer.borderColor = UIColor.black.cgColor
             }
         }
     }
     
-    private func isEquals(_ list1: [String], _ list2: [CategoryForSelect]) -> Bool {
-        var tempArray: [String] = []
-        for category in list2 {
+    private func isEquals(_ compare: [String], with compared: [CategoryForSelect]) -> Bool {
+        var tempCompared: [String] = []
+        for category in compared {
             if category.isSelect {
-                tempArray.append(category.name)
+                tempCompared.append(category.name)
             }
         }
-        return Set(list1) == Set(tempArray)
+        return Set(compare) == Set(tempCompared)
     }
 }
 
@@ -111,9 +114,18 @@ extension CategoriesFilterViewController: UITableViewDataSource {
         let cocktailsCategory = categories?[indexPath.row]
         
         cell.textLabel?.text = cocktailsCategory?.strCategory
-        
+    
+        addCheckmarks(to: cell, by: indexPath)
         cell.indentationWidth = 10
         cell.selectionStyle = .none
         return cell
+    }
+    
+    private func addCheckmarks(to cell: CategoriesTableViewCell, by indexPath: IndexPath) {
+        guard let categories = categories else { return }
+        if savedCategories.contains(categories[indexPath.row].strCategory) {
+            cell.accessoryType = .checkmark
+            categoriesForSelect[indexPath.row].isSelect = true
+        }
     }
 }

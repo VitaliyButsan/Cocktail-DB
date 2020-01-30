@@ -34,6 +34,7 @@ class CocktailsTableViewController: UITableViewController {
         getCocktailsList()
         categoryCounter = 0
         tableView.reloadData()
+        filterBarButton.tintColor = categories.isEmpty ? .black : .red
     }
     
     private func activateLoader() {
