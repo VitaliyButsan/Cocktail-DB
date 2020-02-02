@@ -17,6 +17,7 @@ class CategoriesFilterViewController: UIViewController {
     private var savedCategories: [String] = []
     private var categoriesForSelect: [CategoryForSelect] = []
     var categories: [CocktailsCategory]?
+    var cocktailsTVC: CocktailsTableViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,11 +30,11 @@ class CategoriesFilterViewController: UIViewController {
    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        compareNewOldSelections()
+        filterButton(isEnabled: compareNewOldSelections())
     }
     
     private func getSavedCategories() {
-        savedCategories = db.getCategories()
+        savedCategories = db.getFilteredCategories()
     }
     
     private func makeSelected(_ list: [CocktailsCategory]) {
@@ -44,6 +45,8 @@ class CategoriesFilterViewController: UIViewController {
     
     @IBAction func applyFiltersButtonTapped(_ sender: UIButton) {
         db.deleteAllCategories()
+        cocktailsTVC?.cocktailsViewModel.cocktailsListsByCategories.removeAll()
+        cocktailsTVC?.categoryCounter = 0
         
         for category in categoriesForSelect {
             if category.isSelect {
@@ -61,43 +64,42 @@ extension CategoriesFilterViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         toggleCheckmarkAndCategory(at: indexPath)
-        compareNewOldSelections()
+        filterButton(isEnabled: compareNewOldSelections())
     }
     
     private func toggleCheckmarkAndCategory(at indexPath: IndexPath) {
         guard let selectedCell = tableView.cellForRow(at: indexPath) else { return }
         
         if selectedCell.accessoryType == .checkmark {
-            selectedCell.accessoryType = .none
-            self.categoriesForSelect[indexPath.row].isSelect = false
+            set(accessoryType: .none, to: selectedCell)
+        self.categoriesForSelect[indexPath.row].isSelect = false
         } else {
-            selectedCell.accessoryType = .checkmark
+            set(accessoryType: .checkmark, to: selectedCell)
             self.categoriesForSelect[indexPath.row].isSelect = true
         }
     }
     
-    private func compareNewOldSelections() {
-        if isEquals(savedCategories, with: categoriesForSelect) {
-            DispatchQueue.main.async {
-                self.filterButton.isEnabled = false
-                self.filterButton.layer.borderColor = UIColor(white: 0.5, alpha: 0.5).cgColor
-            }
-        } else {
-            DispatchQueue.main.async {
-                self.filterButton.isEnabled = true
-                self.filterButton.layer.borderColor = UIColor.black.cgColor
-            }
+    private func set(accessoryType: UITableViewCell.AccessoryType, to cell: UITableViewCell) {
+        DispatchQueue.main.async {
+            cell.accessoryType = accessoryType == .none ? .none : .checkmark
         }
     }
     
-    private func isEquals(_ compare: [String], with compared: [CategoryForSelect]) -> Bool {
-        var tempCompared: [String] = []
-        for category in compared {
+    private func compareNewOldSelections() -> Bool {
+        var selectedCategories: [String] = []
+        for category in categoriesForSelect {
             if category.isSelect {
-                tempCompared.append(category.name)
+                selectedCategories.append(category.name)
             }
         }
-        return Set(compare) == Set(tempCompared)
+        return Set(savedCategories) == Set(selectedCategories)
+    }
+    
+    private func filterButton(isEnabled: Bool) {
+        DispatchQueue.main.async {
+            self.filterButton.isEnabled = isEnabled ? false : true
+            self.filterButton.layer.borderColor = isEnabled ? UIColor.lightGray.cgColor : UIColor.black.cgColor
+        }
     }
 }
 
@@ -111,13 +113,12 @@ extension CategoriesFilterViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CategoriesTableViewCell.reuseID, for: indexPath) as! CategoriesTableViewCell
-        let cocktailsCategory = categories?[indexPath.row]
-        
-        cell.textLabel?.text = cocktailsCategory?.strCategory
     
-        addCheckmarks(to: cell, by: indexPath)
+        cell.textLabel?.text = categories?[indexPath.row].strCategory
         cell.indentationWidth = 10
         cell.selectionStyle = .none
+        
+        addCheckmarks(to: cell, by: indexPath)
         return cell
     }
     

@@ -38,7 +38,7 @@ final class Storage {
     
     // save Categories
     func saveCategory(name: String) {
-        var savedCategories = self.getCategories()
+        var savedCategories = self.getFilteredCategories()
 
         if !savedCategories.contains(name) {
             savedCategories.append(name)
@@ -47,7 +47,7 @@ final class Storage {
     }
     
     // get Categories
-    func getCategories() -> [String] {
+    func getFilteredCategories() -> [String] {
         if categoriesIsExist() {
             return UserDefaults.standard.array(forKey: Constants.categories) as! [String]
         } else {
@@ -57,12 +57,12 @@ final class Storage {
     
     // delete Category
     func deleteCategory(name: String) {
-        var savedCategories = self.getCategories()
+        var filteredCategories = self.getFilteredCategories()
 
-        if savedCategories.contains(name) {
-            guard let indexOfDeletingItem = savedCategories.firstIndex(of: name) else {return}
-            savedCategories.remove(at: indexOfDeletingItem)
-            UserDefaults.standard.set(savedCategories, forKey: Constants.categories)
+        if filteredCategories.contains(name) {
+            guard let indexOfDeletingItem = filteredCategories.firstIndex(of: name) else {return}
+            filteredCategories.remove(at: indexOfDeletingItem)
+            UserDefaults.standard.set(filteredCategories, forKey: Constants.categories)
         }
     }
     

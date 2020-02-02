@@ -11,13 +11,26 @@ import MBProgressHUD
 
 class CocktailsTableViewController: UITableViewController {
         
+    private struct Constants {
+        static let nibName: String = "CocktailsTableViewCell"
+        static let segueIdentifier: String = "showCategoriesVCSegue"
+        static let headerViewFontName: String = "Avenir-Light"
+        static let headerViewFontSize: CGFloat = 13.0
+        static let headerViewHieght: CGFloat = 30.0
+        static let headerViewLabelHeight: CGFloat = 20.0
+        static let headerViewLabelLeadingIndent: CGFloat = 16.0
+        static let headerViewSeparatorHeight: CGFloat = 1.0
+        static let rowHeight: CGFloat = 88.0
+        static let headerHeight: CGFloat = 30.0
+    }
+    
     @IBOutlet weak var filterBarButton: UIBarButtonItem!
     
-    private let cocktailsViewModel = CocktailsViewModel()
-    private let db = Storage.shared
+    let cocktailsViewModel = CocktailsViewModel()
+    let db = Storage.shared
     private var isPaging = false
-    private var categoryCounter = 0
-    var categories: [String] = []
+    var categoryCounter = 0
+    var filteredCategories: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,11 +43,10 @@ class CocktailsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        categories = db.getCategories()
+        filteredCategories = db.getFilteredCategories()
         getCocktailsList()
-        categoryCounter = 0
         tableView.reloadData()
-        filterBarButton.tintColor = categories.isEmpty ? .black : .red
+        filterBarButton.tintColor = filteredCategories.isEmpty ? .black : .red
     }
     
     private func activateLoader() {
@@ -42,7 +54,7 @@ class CocktailsTableViewController: UITableViewController {
     }
     
     private func setupNib() {
-        let nib = UINib(nibName: "CocktailsTableViewCell", bundle: nil)
+        let nib = UINib(nibName: Constants.nibName, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: CocktailsTableViewCell.reuseID)
     }
     
@@ -50,6 +62,7 @@ class CocktailsTableViewController: UITableViewController {
         cocktailsViewModel.result = { result in
             switch result {
             case .success( _ ):
+                self.isPaging = false
                 DispatchQueue.main.async {
                     self.hideIndicator()
                     self.tableView.reloadData()
@@ -64,30 +77,28 @@ class CocktailsTableViewController: UITableViewController {
         }
     }
     
-    private func getCocktailsList() {
-        if !categories.isEmpty {
-            if categoryCounter > categories.count - 1 {
-                /// call Alert("no more categories")
-            } else {
-                let category = CocktailsCategory(strCategory: categories[categoryCounter])
-                cocktailsViewModel.getCocktails(by: category)
-                categoryCounter += 1
-            }
+    func getCocktailsList() {
+        if !filteredCategories.isEmpty, categoryCounter <= filteredCategories.count - 1 {
+            let category = CocktailsCategory(strCategory: filteredCategories[categoryCounter])
+            cocktailsViewModel.getCocktails(by: category)
+            categoryCounter += 1
         }
     }
     
     @IBAction func filterBarButtonTapped(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: "showCategoriesVCSegue", sender: nil)
+        performSegue(withIdentifier: Constants.segueIdentifier, sender: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let categoriesVC = segue.destination as? CategoriesFilterViewController
         categoriesVC?.categories = cocktailsViewModel.cocktailsCategories
+        categoriesVC?.cocktailsTVC = self
+        
     }
     
     func alertHandler(title: String, massage: String, titleForActionButton titleOfButton: String) {
         let alert = UIAlertController(title: title, message: massage, preferredStyle: .alert )
-        let alertAction = UIAlertAction(title: titleOfButton, style: .default) { [unowned self] _ in
+        let alertAction = UIAlertAction(title: titleOfButton, style: .default) { _ in
             self.showIndicator(withTitle: "Loading", and: "Load categories..")
             self.cocktailsViewModel.getCategories()
         }
@@ -102,19 +113,19 @@ extension CocktailsTableViewController {
     
     private func setupHeaderView(for section: Int) -> UIView {
         
-        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 30.0))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: Constants.headerHeight))
         headerView.backgroundColor = #colorLiteral(red: 0.9366536736, green: 0.9374585152, blue: 0.9576715827, alpha: 1)
         
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "Avenir-Light", size: 13.0)
+        label.font = UIFont(name: Constants.headerViewFontName, size: Constants.headerViewFontSize)
         label.textColor = #colorLiteral(red: 0.457996428, green: 0.4552010298, blue: 0.4835227728, alpha: 1)
-        label.text = categories[section].uppercased()
+        label.text = filteredCategories[section].uppercased()
         
         headerView.addSubview(label)
         NSLayoutConstraint.activate([
-            label.heightAnchor.constraint(equalToConstant: 20.0),
-            label.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16.0),
+            label.heightAnchor.constraint(equalToConstant: Constants.headerViewLabelHeight),
+            label.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: Constants.headerViewLabelLeadingIndent),
             label.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
             label.centerYAnchor.constraint(equalTo: headerView.centerYAnchor)
         ])
@@ -125,7 +136,7 @@ extension CocktailsTableViewController {
         
         headerView.addSubview(separator)
         NSLayoutConstraint.activate([
-            separator.heightAnchor.constraint(equalToConstant: 1.0),
+            separator.heightAnchor.constraint(equalToConstant: Constants.headerViewSeparatorHeight),
             separator.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
             separator.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
             separator.bottomAnchor.constraint(equalTo: headerView.bottomAnchor)
@@ -140,25 +151,31 @@ extension CocktailsTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 88.0
+        return Constants.rowHeight
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30.0
+        return Constants.headerHeight
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let tableView = scrollView as? UITableView else {return}
+        makePagination(by: tableView)
+    }
+    
+    private func makePagination(by tableView: UITableView) {
         guard let visibleSection = tableView.indexPathsForVisibleRows?.first?.section else { return }
-        let category = CocktailsCategory(strCategory: categories[visibleSection])
-        guard let cocktailsList = cocktailsViewModel.cocktailsListsByCategories[category] else { return }
-            
-        // pagination
-        if tableView.indexPathsForVisibleRows?.last?.row == cocktailsList.count / 2 {
-            if !isPaging {
-                //getCocktailsList()
+        let visibleCategory = CocktailsCategory(strCategory: filteredCategories[visibleSection])
+        guard let visibleCocktailsList = cocktailsViewModel.cocktailsListsByCategories[visibleCategory] else { return }
+        guard let visibleIndexPaths = tableView.indexPathsForVisibleRows else { return }
+        let visibleRowsIndices: [Int] = visibleIndexPaths.map { $0.row }
+        
+        if !isPaging,
+           visibleSection == cocktailsViewModel.cocktailsListsByCategories.count - 1,
+           visibleSection != filteredCategories.count - 1,
+           visibleRowsIndices.contains(visibleCocktailsList.count / 2) {
                 isPaging = true
-            }
+                getCocktailsList()
         }
     }
 }
@@ -168,17 +185,17 @@ extension CocktailsTableViewController {
 extension CocktailsTableViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return categories.count
+        return filteredCategories.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let category = CocktailsCategory(strCategory: categories[section])
+        let category = CocktailsCategory(strCategory: filteredCategories[section])
         return cocktailsViewModel.cocktailsListsByCategories[category]?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CocktailsTableViewCell.reuseID, for: indexPath) as! CocktailsTableViewCell
-        let category = CocktailsCategory(strCategory: categories[indexPath.section])
+        let category = CocktailsCategory(strCategory: filteredCategories[indexPath.section])
         
         if let cocktailsList = cocktailsViewModel.cocktailsListsByCategories[category] {
             cell.updateCell(by: cocktailsList[indexPath.row])

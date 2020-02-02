@@ -16,11 +16,6 @@ class CocktailsTableViewCell: UITableViewCell {
     
     static let reuseID: String = "CocktailsCell"
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
     func updateCell(by cocktailInfo: CocktailInfo) {
         cocktailNameLabel.text = cocktailInfo.name
         guard let imageLink = cocktailInfo.thumbLink else { return }
