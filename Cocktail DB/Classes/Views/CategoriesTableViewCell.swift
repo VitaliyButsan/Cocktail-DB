@@ -13,10 +13,4 @@ class CategoriesTableViewCell: UITableViewCell {
     static let reuseID: String = "CategoriesCell"
     
     @IBOutlet weak var categoriesNameLabel: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
 }

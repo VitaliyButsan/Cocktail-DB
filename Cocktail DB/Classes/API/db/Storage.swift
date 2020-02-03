@@ -20,20 +20,17 @@ final class Storage {
     
     // check Categories existence
     func categoriesIsExist() -> Bool {
-        if UserDefaults.standard.array(forKey: Constants.categories) != nil {
-            return true
-        } else {
-            return false
-        }
+        return UserDefaults.standard.array(forKey: Constants.categories) != nil ? true : false
     }
     
     // check categoriesWithDrinks existence
     func categoriesWithDrinksIsExist() -> Bool {
-        if UserDefaults.standard.array(forKey: Constants.categoriesWithDrinks) != nil {
-            return true
-        } else {
-            return false
-        }
+        return UserDefaults.standard.array(forKey: Constants.categoriesWithDrinks) != nil ? true : false
+    }
+    
+    // get Categories
+    func getFilteredCategories() -> [String] {
+        return categoriesIsExist() ? UserDefaults.standard.array(forKey: Constants.categories) as! [String] : []
     }
     
     // save Categories
@@ -45,27 +42,7 @@ final class Storage {
             UserDefaults.standard.set(savedCategories, forKey: Constants.categories)
         }
     }
-    
-    // get Categories
-    func getFilteredCategories() -> [String] {
-        if categoriesIsExist() {
-            return UserDefaults.standard.array(forKey: Constants.categories) as! [String]
-        } else {
-            return []
-        }
-    }
-    
-    // delete Category
-    func deleteCategory(name: String) {
-        var filteredCategories = self.getFilteredCategories()
-
-        if filteredCategories.contains(name) {
-            guard let indexOfDeletingItem = filteredCategories.firstIndex(of: name) else {return}
-            filteredCategories.remove(at: indexOfDeletingItem)
-            UserDefaults.standard.set(filteredCategories, forKey: Constants.categories)
-        }
-    }
-    
+   
     // delete All Categories
     func deleteAllCategories() {
         UserDefaults.standard.removeObject(forKey: Constants.categories)

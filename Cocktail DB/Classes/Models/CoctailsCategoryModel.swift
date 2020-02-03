@@ -13,5 +13,9 @@ struct CocktailsCategoriesWrapper: Decodable {
 }
 
 struct CocktailsCategory: Decodable, Hashable {
-    let strCategory: String
+    let name: String
+    
+    enum CodingKeys: String, CodingKey {
+        case name = "strCategory"
+    }
 }

@@ -50,7 +50,7 @@ class CocktailsViewModel {
     
     func getCocktails(by category: CocktailsCategory) {
         
-        provider.request(.filter(by: category.strCategory)) { [weak self] result in
+        provider.request(.filter(by: category.name)) { [weak self] result in
             guard let self = self else { return }
             
             switch result {

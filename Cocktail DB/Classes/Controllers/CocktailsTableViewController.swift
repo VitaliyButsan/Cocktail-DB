@@ -43,6 +43,7 @@ class CocktailsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         filteredCategories = db.getFilteredCategories()
         getCocktailsList()
         tableView.reloadData()
@@ -79,7 +80,7 @@ class CocktailsTableViewController: UITableViewController {
     
     func getCocktailsList() {
         if !filteredCategories.isEmpty, categoryCounter <= filteredCategories.count - 1 {
-            let category = CocktailsCategory(strCategory: filteredCategories[categoryCounter])
+            let category = CocktailsCategory(name: filteredCategories[categoryCounter])
             cocktailsViewModel.getCocktails(by: category)
             categoryCounter += 1
         }
@@ -165,7 +166,7 @@ extension CocktailsTableViewController {
     
     private func makePagination(by tableView: UITableView) {
         guard let visibleSection = tableView.indexPathsForVisibleRows?.first?.section else { return }
-        let visibleCategory = CocktailsCategory(strCategory: filteredCategories[visibleSection])
+        let visibleCategory = CocktailsCategory(name: filteredCategories[visibleSection])
         guard let visibleCocktailsList = cocktailsViewModel.cocktailsListsByCategories[visibleCategory] else { return }
         guard let visibleIndexPaths = tableView.indexPathsForVisibleRows else { return }
         let visibleRowsIndices: [Int] = visibleIndexPaths.map { $0.row }
@@ -189,13 +190,13 @@ extension CocktailsTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let category = CocktailsCategory(strCategory: filteredCategories[section])
+        let category = CocktailsCategory(name: filteredCategories[section])
         return cocktailsViewModel.cocktailsListsByCategories[category]?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CocktailsTableViewCell.reuseID, for: indexPath) as! CocktailsTableViewCell
-        let category = CocktailsCategory(strCategory: filteredCategories[indexPath.section])
+        let category = CocktailsCategory(name: filteredCategories[indexPath.section])
         
         if let cocktailsList = cocktailsViewModel.cocktailsListsByCategories[category] {
             cell.updateCell(by: cocktailsList[indexPath.row])

@@ -39,7 +39,7 @@ class CategoriesFilterViewController: UIViewController {
     
     private func makeSelected(_ list: [CocktailsCategory]) {
         for categoryName in list {
-            categoriesForSelect.append(CategoryForSelect(name: categoryName.strCategory, isSelect: false))
+            categoriesForSelect.append(CategoryForSelect(name: categoryName.name, isSelect: false))
         }
     }
     
@@ -72,7 +72,7 @@ extension CategoriesFilterViewController: UITableViewDelegate {
         
         if selectedCell.accessoryType == .checkmark {
             set(accessoryType: .none, to: selectedCell)
-        self.categoriesForSelect[indexPath.row].isSelect = false
+            self.categoriesForSelect[indexPath.row].isSelect = false
         } else {
             set(accessoryType: .checkmark, to: selectedCell)
             self.categoriesForSelect[indexPath.row].isSelect = true
@@ -114,7 +114,7 @@ extension CategoriesFilterViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CategoriesTableViewCell.reuseID, for: indexPath) as! CategoriesTableViewCell
     
-        cell.textLabel?.text = categories?[indexPath.row].strCategory
+        cell.textLabel?.text = categories?[indexPath.row].name
         cell.indentationWidth = 10
         cell.selectionStyle = .none
         
@@ -124,7 +124,7 @@ extension CategoriesFilterViewController: UITableViewDataSource {
     
     private func addCheckmarks(to cell: CategoriesTableViewCell, by indexPath: IndexPath) {
         guard let categories = categories else { return }
-        if savedCategories.contains(categories[indexPath.row].strCategory) {
+        if savedCategories.contains(categories[indexPath.row].name) {
             cell.accessoryType = .checkmark
             categoriesForSelect[indexPath.row].isSelect = true
         }
