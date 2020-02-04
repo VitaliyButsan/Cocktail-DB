@@ -77,7 +77,7 @@
                                 <rect key="frame" x="0.0" y="791" width="414" height="105"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nRo-Qx-m2j">
-                                        <rect key="frame" x="24" y="55" width="366" height="50"/>
+                                        <rect key="frame" x="24" y="5" width="366" height="50"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="Ejd-TX-s0H"/>
@@ -98,7 +98,6 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="nRo-Qx-m2j" secondAttribute="bottom" id="5Oq-Sw-iCX"/>
                                     <constraint firstItem="nRo-Qx-m2j" firstAttribute="leading" secondItem="wrV-Ui-6sb" secondAttribute="leading" constant="24" id="K6C-Sk-vwU"/>
                                     <constraint firstAttribute="trailing" secondItem="nRo-Qx-m2j" secondAttribute="trailing" constant="24" id="V8n-Cp-NlE"/>
                                     <constraint firstAttribute="height" constant="105" id="rU2-VO-5fd"/>
@@ -115,6 +114,7 @@
                             <constraint firstItem="wrV-Ui-6sb" firstAttribute="leading" secondItem="SJp-lS-Ue9" secondAttribute="leading" id="fhK-Wf-9Kl"/>
                             <constraint firstItem="xJY-M8-kII" firstAttribute="leading" secondItem="SJp-lS-Ue9" secondAttribute="leading" id="iE1-JO-e9k"/>
                             <constraint firstAttribute="bottom" secondItem="wrV-Ui-6sb" secondAttribute="bottom" id="qcS-sL-SFy"/>
+                            <constraint firstItem="SJp-lS-Ue9" firstAttribute="bottom" secondItem="nRo-Qx-m2j" secondAttribute="bottom" constant="16" id="ytB-Du-eKA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SJp-lS-Ue9"/>
                     </view>
