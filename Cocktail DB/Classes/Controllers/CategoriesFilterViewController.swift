@@ -72,10 +72,10 @@ extension CategoriesFilterViewController: UITableViewDelegate {
         
         if selectedCell.accessoryType == .checkmark {
             set(accessoryType: .none, to: selectedCell)
-            self.categoriesForSelect[indexPath.row].isSelect = false
+            category(isSelected: false, for: indexPath)
         } else {
             set(accessoryType: .checkmark, to: selectedCell)
-            self.categoriesForSelect[indexPath.row].isSelect = true
+            category(isSelected: true, for: indexPath)
         }
     }
     
@@ -83,6 +83,10 @@ extension CategoriesFilterViewController: UITableViewDelegate {
         DispatchQueue.main.async {
             cell.accessoryType = accessoryType == .none ? .none : .checkmark
         }
+    }
+    
+    private func category(isSelected: Bool, for indexPath: IndexPath) {
+        categoriesForSelect[indexPath.row].isSelect = isSelected ? true : false
     }
     
     private func compareNewOldSelections() -> Bool {

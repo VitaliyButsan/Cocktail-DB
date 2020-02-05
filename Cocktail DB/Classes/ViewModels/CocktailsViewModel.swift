@@ -16,63 +16,51 @@ class CocktailsViewModel {
     var cocktailsListsByCategories: [CocktailsCategory : [CocktailInfo]] = [:]
     var result: ((Result<Void, Error>) -> Void)?
     
+    // MARK: - JSON Decoder
+    
+    private func getDecodedType<T: Decodable>(from data: Data) -> T? {
+        do {
+            let decodedGeneric = try JSONDecoder().decode(T.self, from: data)
+            return decodedGeneric
+        } catch {
+            print(error)
+            return nil
+        }
+    }
+
     // MARK: - Get Categories
     
     func getCategories() {
-        
-        provider.request(.getCategories) { [weak self] result in
-            guard let self = self else { return }
+        provider.request(.getCategories) { result in
             
             switch result {
             case .success(let moyaResponse):
-                guard let receivedCategories = self.getCocktailsCategories(from: moyaResponse.data) else { return }
-                self.cocktailsCategories = receivedCategories
+                guard let categoriesWrapper: CocktailsCategoriesWrapper = self.getDecodedType(from: moyaResponse.data) else { return }
+                self.cocktailsCategories = categoriesWrapper.drinks
                 self.result?(.success(Void()))
                 
             case .failure(let error):
                 print(error)
                 self.result?(.failure(error))
             }
-        }
-    }
-    
-    private func getCocktailsCategories(from data: Data) -> [CocktailsCategory]? {
-        do {
-            let cocktailsWrapper = try JSONDecoder().decode(CocktailsCategoriesWrapper.self, from: data)
-            return cocktailsWrapper.drinks
-        } catch {
-            print(error)
-            return nil
         }
     }
     
     // MARK: - Get Cocktails List by Category
     
     func getCocktails(by category: CocktailsCategory) {
-        
-        provider.request(.filter(by: category.name)) { [weak self] result in
-            guard let self = self else { return }
+        provider.request(.filter(by: category.name)) { result in
             
             switch result {
             case .success(let moyaResponse):
-                guard let receivedCocktails = self.getCocktailsList(from: moyaResponse.data) else { return }
-                self.cocktailsListsByCategories[category] = receivedCocktails
+                guard let cocktailsWrapper: CocktailsListWrapper = self.getDecodedType(from: moyaResponse.data) else { return }
+                self.cocktailsListsByCategories[category] = cocktailsWrapper.drinks
                 self.result?(.success(Void()))
                 
             case .failure(let error):
                 print(error)
                 self.result?(.failure(error))
             }
-        }
-    }
-    
-    private func getCocktailsList(from data: Data) -> [CocktailInfo]? {
-        do {
-            let coctailsWrapper = try JSONDecoder().decode(CocktailsListWrapper.self, from: data)
-            return coctailsWrapper.drinks
-        } catch {
-            print(error)
-            return nil
         }
     }
 }

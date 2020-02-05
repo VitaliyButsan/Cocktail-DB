@@ -19,7 +19,6 @@ class CocktailsTableViewCell: UITableViewCell {
     func updateCell(by cocktailInfo: CocktailInfo) {
         cocktailNameLabel.text = cocktailInfo.name
         guard let imageLink = cocktailInfo.thumbLink else { return }
-        let url = URL(string: imageLink)
-        cocktailImageView.sd_setImage(with: url, completed: nil)
+        cocktailImageView.sd_setImage(with: URL(string: imageLink), completed: nil)
     }
 }

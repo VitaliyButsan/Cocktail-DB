@@ -85,11 +85,7 @@ class CocktailsTableViewController: UITableViewController {
             categoryCounter += 1
         }
     }
-    
-    @IBAction func filterBarButtonTapped(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: Constants.segueIdentifier, sender: nil)
-    }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let categoriesVC = segue.destination as? CategoriesFilterViewController
         categoriesVC?.categories = cocktailsViewModel.cocktailsCategories
@@ -105,6 +101,10 @@ class CocktailsTableViewController: UITableViewController {
         }
         alert.addAction(alertAction)
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func filterBarButtonTapped(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: Constants.segueIdentifier, sender: nil)
     }
 }
 
