@@ -1,36 +1,32 @@
 PODS:
-  - Alamofire (4.9.1)
+  - Alamofire (5.8.1)
   - MBProgressHUD (1.2.0)
-  - Moya (13.0.1):
-    - Moya/Core (= 13.0.1)
-  - Moya/Core (13.0.1):
-    - Alamofire (~> 4.1)
-    - Result (~> 4.1)
-  - Result (4.1.0)
-  - SDWebImage (5.5.2):
-    - SDWebImage/Core (= 5.5.2)
-  - SDWebImage/Core (5.5.2)
+  - Moya (15.0.0):
+    - Moya/Core (= 15.0.0)
+  - Moya/Core (15.0.0):
+    - Alamofire (~> 5.0)
+  - SDWebImage/Core (5.18.11)
+  - SDWebImage/MapKit (5.18.11):
+    - SDWebImage/Core
 
 DEPENDENCIES:
   - MBProgressHUD (~> 1.2.0)
-  - Moya (~> 13.0)
-  - SDWebImage (~> 5.0)
+  - Moya (~> 15.0)
+  - SDWebImage/MapKit
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - MBProgressHUD
     - Moya
-    - Result
     - SDWebImage
 
 SPEC CHECKSUMS:
-  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  Alamofire: 3ca42e259043ee0dc5c0cdd76c4bc568b8e42af7
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
-  Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
-  Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
-  SDWebImage: 4d5c027c935438f341ed33dbac53ff9f479922ca
+  Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
+  SDWebImage: a3ba0b8faac7228c3c8eadd1a55c9c9fe5e16457
 
-PODFILE CHECKSUM: 0d9bb02637444e992fc5c06e525dc058b256263c
+PODFILE CHECKSUM: a0cfb2ecaed3dcaa620b610e8e641f928750e3db
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.14.3

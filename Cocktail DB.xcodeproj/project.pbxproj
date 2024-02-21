@@ -26,12 +26,13 @@
 		589F9CAE23E0912400D4703E /* CategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589F9CAC23E0912400D4703E /* CategoriesTableViewCell.swift */; };
 		58A1737F23E1029800E38155 /* ViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A1737E23E1029800E38155 /* ViewControllerExtension.swift */; };
 		58A1738223E19D4000E38155 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A1738123E19D4000E38155 /* Storage.swift */; };
-		F0ADD65C91330D36D1A990DF /* Pods_Cocktail_DB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 215FD3B9F5FF834662A69849 /* Pods_Cocktail_DB.framework */; };
+		BB4D0FB90A93050E4E93D0FB /* Pods_Cocktail_DB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AA771CB10EE1203A3B52730 /* Pods_Cocktail_DB.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0BE757BD57540F04810B6771 /* Pods-Cocktail DB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cocktail DB.debug.xcconfig"; path = "Target Support Files/Pods-Cocktail DB/Pods-Cocktail DB.debug.xcconfig"; sourceTree = "<group>"; };
-		215FD3B9F5FF834662A69849 /* Pods_Cocktail_DB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cocktail_DB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1AA771CB10EE1203A3B52730 /* Pods_Cocktail_DB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cocktail_DB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CF9AA3B8F533C27A41E6EA5 /* Pods-Cocktail DB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cocktail DB.release.xcconfig"; path = "Target Support Files/Pods-Cocktail DB/Pods-Cocktail DB.release.xcconfig"; sourceTree = "<group>"; };
+		51600EFA225AAE50CD4DE47E /* Pods-Cocktail DB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cocktail DB.debug.xcconfig"; path = "Target Support Files/Pods-Cocktail DB/Pods-Cocktail DB.debug.xcconfig"; sourceTree = "<group>"; };
 		58083BC123DDEB6700D11675 /* CocktailsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocktailsListModel.swift; sourceTree = "<group>"; };
 		581360EA23E0CBC800C9C4B5 /* CategoryForSelectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryForSelectModel.swift; sourceTree = "<group>"; };
 		581E802B23DDAE22009E9E34 /* MoyaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaAPI.swift; sourceTree = "<group>"; };
@@ -53,7 +54,6 @@
 		589F9CAC23E0912400D4703E /* CategoriesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewCell.swift; sourceTree = "<group>"; };
 		58A1737E23E1029800E38155 /* ViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerExtension.swift; sourceTree = "<group>"; };
 		58A1738123E19D4000E38155 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
-		AF067116B929AF21EEACEDCC /* Pods-Cocktail DB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cocktail DB.release.xcconfig"; path = "Target Support Files/Pods-Cocktail DB/Pods-Cocktail DB.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0ADD65C91330D36D1A990DF /* Pods_Cocktail_DB.framework in Frameworks */,
+				BB4D0FB90A93050E4E93D0FB /* Pods_Cocktail_DB.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,7 +91,7 @@
 				583654FF23DD96C2004D5540 /* Cocktail DB */,
 				583654FE23DD96C2004D5540 /* Products */,
 				D5830187FF28F728CF6BF13D /* Pods */,
-				5D6C9A49DF39E9C15638A32F /* Frameworks */,
+				D3BAFE26D2B6FCFF14833B8F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -225,10 +225,10 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		5D6C9A49DF39E9C15638A32F /* Frameworks */ = {
+		D3BAFE26D2B6FCFF14833B8F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				215FD3B9F5FF834662A69849 /* Pods_Cocktail_DB.framework */,
+				1AA771CB10EE1203A3B52730 /* Pods_Cocktail_DB.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -236,8 +236,8 @@
 		D5830187FF28F728CF6BF13D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				0BE757BD57540F04810B6771 /* Pods-Cocktail DB.debug.xcconfig */,
-				AF067116B929AF21EEACEDCC /* Pods-Cocktail DB.release.xcconfig */,
+				51600EFA225AAE50CD4DE47E /* Pods-Cocktail DB.debug.xcconfig */,
+				4CF9AA3B8F533C27A41E6EA5 /* Pods-Cocktail DB.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -249,11 +249,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5836551123DD96C5004D5540 /* Build configuration list for PBXNativeTarget "Cocktail DB" */;
 			buildPhases = (
-				B0151A8ADAD8850DA13B2FD8 /* [CP] Check Pods Manifest.lock */,
+				AE0CA74253E1C279BA424D4B /* [CP] Check Pods Manifest.lock */,
 				583654F923DD96C2004D5540 /* Sources */,
 				583654FA23DD96C2004D5540 /* Frameworks */,
 				583654FB23DD96C2004D5540 /* Resources */,
-				814D7762DF45CCC751A38FCE /* [CP] Embed Pods Frameworks */,
+				7E50B79236B7382E11508046 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -314,7 +314,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		814D7762DF45CCC751A38FCE /* [CP] Embed Pods Frameworks */ = {
+		7E50B79236B7382E11508046 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -331,7 +331,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Cocktail DB/Pods-Cocktail DB-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B0151A8ADAD8850DA13B2FD8 /* [CP] Check Pods Manifest.lock */ = {
+		AE0CA74253E1C279BA424D4B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -514,7 +514,7 @@
 		};
 		5836551223DD96C5004D5540 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0BE757BD57540F04810B6771 /* Pods-Cocktail DB.debug.xcconfig */;
+			baseConfigurationReference = 51600EFA225AAE50CD4DE47E /* Pods-Cocktail DB.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -534,7 +534,7 @@
 		};
 		5836551323DD96C5004D5540 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AF067116B929AF21EEACEDCC /* Pods-Cocktail DB.release.xcconfig */;
+			baseConfigurationReference = 4CF9AA3B8F533C27A41E6EA5 /* Pods-Cocktail DB.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
